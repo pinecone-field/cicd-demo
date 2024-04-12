@@ -1,17 +1,16 @@
 import unittest
+from query import search_query
 
 class TestApp(unittest.TestCase):
-    def test_method1(self):
-        # Add your test logic for method1 here
-        self.assertEqual(1, 1)
-
-    def test_method2(self):
-        # Add your test logic for method2 here
-        self.assertEqual(2, 2)
-
-    def test_method3(self):
-        # Add your test logic for method3 here
-        self.assertEqual(3, 3)
-
+    def test_search_query(self):
+        answer = search_query("What are the main challenges in machine learning?")
+        expected_answer = (
+            "The main challenges in machine learning include dealing with insufficient "
+            "quantities of training data, handling unstructured data, avoiding bias in "
+            "models, overfitting, and underfitting."
+        )
+        
+        self.assertEqual(answer, expected_answer)
+        
 if __name__ == '__main__':
     unittest.main()
