@@ -44,4 +44,3 @@ jobs:
         uses: actions/checkout@v2
       - name: Run data pipeline - delete
         run: python search/data_pipeline.py delete
-
