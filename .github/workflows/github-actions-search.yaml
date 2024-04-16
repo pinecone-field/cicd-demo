@@ -8,11 +8,15 @@ env:
   PINECONE_INDEX_NAME: "search-ci"
 
 jobs:
-  Print-Environment-Variables:
+  Run-Search-Tests:
     runs-on: ubuntu-latest
     steps:
     - name: Print all environment variables
       run: env
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Run data pipeline - upsert
+      run: python search/data_pipeline.py upsert
     - name: Run data pipeline - upsert
       run: python search/data_pipeline.py upsert
     - name: Run unit tests
