@@ -7,12 +7,12 @@ import argparse
 
 load_dotenv()
 API_KEY = os.getenv("PINECONE_API_KEY")
-INDEX_NAME = "search-ci"
-NAMESPACE = os.getenv("COMMIT_ID")
+PINECONE_INDEX_NAME = "search-ci"
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE")
 
 def upsert_data():
     pc = Pinecone(api_key=API_KEY)
-    index = pc.Index(INDEX_NAME)
+    index = pc.Index(PINECONE_INDEX_NAME)
     vectors = []
  
     with open('data.jsonl', 'r') as f:
@@ -24,14 +24,14 @@ def upsert_data():
                   "metadata": {"question": entry["question"], "answer": entry["answer"]}}
         vectors.append(vector)
     
-    index.upsert(vectors=vectors, namespace=NAMESPACE)
-    print(f"Upserted {len(vectors)} vectors in index: {INDEX_NAME} for namespace: {NAMESPACE}")
+    index.upsert(vectors=vectors, namespace=PINECONE_NAMESPACE)
+    print(f"Upserted {len(vectors)} vectors in index: {PINECONE_INDEX_NAME} for namespace: {PINECONE_NAMESPACE}")
 
 def delete_data():
     pc = Pinecone(api_key=API_KEY)
-    index = pc.Index(INDEX_NAME)
-    index.delete(delete_all=True, namespace=NAMESPACE)
-    print(f"Deleted all vectors in index: {INDEX_NAME} for namespace: {NAMESPACE}")
+    index = pc.Index(PINECONE_INDEX_NAME)
+    index.delete(delete_all=True, namespace=PINECONE_NAMESPACE)
+    print(f"Deleted all vectors in index: {PINECONE_INDEX_NAME} for namespace: {PINECONE_NAMESPACE}")
 
 def main():
     parser = argparse.ArgumentParser(description="CLI for upserting and deleted pinecone index data")
