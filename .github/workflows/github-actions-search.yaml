@@ -6,6 +6,7 @@ env:
   PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
   PINECONE_NAMESPACE: ${{ github.sha }}
   PINECONE_INDEX_NAME: "search-ci"
+  DATA_FILE: "search/data.json"
 
 jobs:
   Run-Search-Tests:

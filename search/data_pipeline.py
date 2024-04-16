@@ -7,15 +7,17 @@ import argparse
 
 load_dotenv()
 API_KEY = os.getenv("PINECONE_API_KEY")
-PINECONE_INDEX_NAME = "search-ci"
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE")
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "default_namespace")
+DATA_FILE =  os.getenv("DATA_FILE", "data.jsonl")
+PINECONE_INDEX_NAME = "search-ci"
 
 def upsert_data():
     pc = Pinecone(api_key=API_KEY)
     index = pc.Index(PINECONE_INDEX_NAME)
     vectors = []
- 
-    with open('data.jsonl', 'r') as f:
+
+    with open(DATA_FILE, 'r') as f:
         data = [json.loads(line) for line in f]
     
     for entry in data:
