@@ -9,7 +9,7 @@ load_dotenv()
 API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE")
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "default_namespace")
-DATA_FILE =  os.getenv("DATA_FILE", "data.jsonl")
+DATA_FILE =  os.getenv("DATA_FILE", "data/search-data.jsonl")
 PINECONE_INDEX_NAME = "search-ci"
 
 def upsert_data():

@@ -1,5 +1,5 @@
 name: GitHub Actions Demo - Search
-run-name: Search - ${{ github.actor }} - ${{ github.event_name }} 
+run-name: Search - ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
 on: 
   push:
     paths:
@@ -9,7 +9,7 @@ env:
   PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
   PINECONE_NAMESPACE: ${{ github.sha }}
   PINECONE_INDEX_NAME: "search-ci"
-  DATA_FILE: "search/data.jsonl"
+  DATA_FILE: "data/search-data.jsonl"
 
 jobs:
   Build-RunDataPipeline-RunTests-Teardown:
