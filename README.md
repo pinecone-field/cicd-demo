@@ -7,7 +7,10 @@ You will need to create a Pinecone account from [Pinecone](https://app.pinecone.
 ### Step #1 - Setup
 Add the following to a ```.env``` file.
 
-```PINECONE_API_KEY=[YOUR_API_KEY]```
+```PINECONE_API_KEY=[YOUR_API_KEY]
+   PINECONE_NAMESPACE=[YOUR_USER_ID]
+   PINECONE_INDEX_NAME=[YOUR_INDEX_NAME]
+```
 
 Create a python virtual environment and install packages required for demo.
 

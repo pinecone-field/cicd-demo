@@ -29,6 +29,7 @@ def search_query(question):
         )
         answer = result.matches[0].metadata["answer"]
         score = result.matches[0].score
+        print(f"Query is for: {PINECONE_INDEX_NAME} index in the {PINECONE_NAMESPACE} namespace")
         print(f"Question: {question} \nAnswer: {answer} \nSimilarity score: {score}")
 
         # if result.matches[0].score < 0.5:
