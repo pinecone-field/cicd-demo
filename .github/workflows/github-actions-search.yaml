@@ -15,6 +15,8 @@ jobs:
       run: env
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Install dependencies
+      run: pip install -r requirements.txt
     - name: Run data pipeline - upsert
       run: python search/data_pipeline.py upsert
     - name: Run data pipeline - upsert
