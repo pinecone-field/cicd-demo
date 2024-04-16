@@ -1,0 +1,16 @@
+name: GitHub Actions Demo - Search
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+
+env:
+  PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+  PINECONE_NAMESPACE: ${{ github.sha }}
+  PINECONE_INDEX_NAME: "search-ci"
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print all environment variables
+      run: env
+

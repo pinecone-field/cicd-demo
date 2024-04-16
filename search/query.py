@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 API_KEY = os.getenv("PINECONE_API_KEY")
-INDEX_NAME = "search-ci"
-NAMESPACE = os.getenv("COMMIT_ID")
+NAMESPACE = os.getenv("PINECONE_NAMESPACE")
+INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 
 def generate_embedding(question):
     model = SentenceTransformer('all-MiniLM-L6-v2')
