@@ -1,5 +1,5 @@
 import unittest
-from query import search_query
+from .query import search_query
 
 class TestApp(unittest.TestCase):
     def test_search_query(self):

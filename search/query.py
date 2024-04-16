@@ -5,9 +5,9 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-API_KEY = os.getenv("PINECONE_API_KEY")
-NAMESPACE = os.getenv("PINECONE_NAMESPACE")
-INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 
 def generate_embedding(question):
     model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -18,11 +18,11 @@ def generate_embedding(question):
 def search_query(question):
     try:
         embedding = generate_embedding(question)
-        pc = Pinecone(api_key=API_KEY)
-        index = pc.Index(INDEX_NAME)
+        pc = Pinecone(api_key=PINECONE_API_KEY)
+        index = pc.Index(PINECONE_INDEX_NAME)
 
         result = index.query(
-            namespace=NAMESPACE,
+            namespace=PINECONE_NAMESPACE,
             vector=embedding,
             top_k=1,
             include_metadata=True

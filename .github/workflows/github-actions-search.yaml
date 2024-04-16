@@ -21,7 +21,7 @@ jobs:
     - name: Run data pipeline - upsert
       run: python search/data_pipeline.py upsert
     - name: Run unit tests
-      run: python -m search/unittest test_app
+      run: python -m unittest search.test_app
     - name: Run data pipeline - delete
       run: python search/data_pipeline.py delete
 
