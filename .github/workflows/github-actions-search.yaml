@@ -1,5 +1,5 @@
 name: GitHub Actions Demo - Search
-run-name: ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
+run-name: Search - ${{ github.actor }} - ${{ github.event_name }} 
 on: 
   push:
     paths:
