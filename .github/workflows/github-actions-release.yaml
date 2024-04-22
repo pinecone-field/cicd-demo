@@ -1,0 +1,23 @@
+name: Release - Question-Answer and Recommendation
+run-name: Question-Answer and Recommendation - ${{ github.actor }} - ${{ github.event_name }}
+on:
+  workflow_dispatch:
+
+env:
+  PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+  PINECONE_NAMESPACE: ${{ github.sha }}
+  PINECONE_INDEX_RECOMMENDATION: "recommendation-production"
+  PINECONE_INDEX_QUESTION-ANSWER: "question-answer-production"
+
+jobs:
+  Build-Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run integration tests
+        run: echo "[MOCK] - This is where we run integration tests"
+      - name: Deploy
+        run: echo "[MOCK] - This is where we deploy"

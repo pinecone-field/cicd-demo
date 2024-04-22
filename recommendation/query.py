@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE")
-PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_RECOMMENDATION")
 
 def generate_embedding(query_text):
     model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -15,7 +15,7 @@ def generate_embedding(query_text):
 
     return embedding.tolist()
 
-def recommendation_query(query_text, rsi_filter, pe_filter, dividend_filter):
+def query(query_text, rsi_filter, pe_filter, dividend_filter):
     try:
         embedding = generate_embedding(query_text)
         pc = Pinecone(api_key=PINECONE_API_KEY)
@@ -36,8 +36,7 @@ def recommendation_query(query_text, rsi_filter, pe_filter, dividend_filter):
 
         # if result.matches[0].score < 0.5:
         #     return "Sorry, I do not have a recommendation for you."
-        # 
-
+        
         for r in result.matches:
             recommendation = r.metadata["ticker"]
             score = r.score

@@ -9,9 +9,9 @@ from sentence_transformers import SentenceTransformer
 load_dotenv()
 API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_RECOMMENDATION")
 SOURCE_DATA_FILE =  os.getenv("SOURCE_DATA_FILE", "data/recommendation-data.jsonl")
 DATA_FILE = os.getenv("DATA_FILE", "data/recommendation-data-with-embeddings.jsonl")
-PINECONE_INDEX_NAME = "recommendation-ci"
 
 def upsert_data():
     pc = Pinecone(api_key=API_KEY)

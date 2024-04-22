@@ -1,22 +1,16 @@
-from typing import Union
-
 from fastapi import FastAPI
-from search.query import search_query
-from recommendation.query import recommendation_query
+from question_answer.query import query as qa_query
+from recommendation.query import query as rec_query
 
 app = FastAPI()
 
-@app.post("/search")
+@app.post("/question-answer")
 def search(question: str):
-    return {"answer": search_query(question)}
+    return {"answer": qa_query(question)}
 
-@app.post("/genai")
-def genai(question: str):
-    return None
-
-@app.post("/recommend")
+@app.post("/recommendation")
 def recommend(query_text: str, 
               rsi_filter: float, 
               pe_filter: float, 
               dividend_filter: float):
-    return {"recommendation": recommendation_query(query_text, rsi_filter, pe_filter, dividend_filter)}
+    return {"recommendation": rec_query(query_text, rsi_filter, pe_filter, dividend_filter)}

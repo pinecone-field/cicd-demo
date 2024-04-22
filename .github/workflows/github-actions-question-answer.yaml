@@ -1,0 +1,28 @@
+name: CI/CD - Question-Answer
+run-name: Question-Answer - ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
+on: 
+  push:
+    paths:
+      - 'search/**'
+
+env:
+  PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+  PINECONE_NAMESPACE: ${{ github.sha }}
+  PINECONE_INDEX_QUESTION-ANSWER: "question-answer-ci"
+  DATA_FILE: "data/question-answer-data-with-embeddings.jsonl"
+
+jobs:
+  Build-RunDataPipeline-RunTests-Teardown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run data pipeline - upsert
+        run: python question_answer/data_pipeline.py upsert
+      - name: Run question_answer tests
+        run: python -m unittest question_answer.test
+      - name: Run data pipeline - delete
+        if: always()
+        run: python question_answer/data_pipeline.py delete

@@ -8,9 +8,10 @@ import argparse
 load_dotenv()
 
 API_KEY = os.getenv("PINECONE_API_KEY")
-INDEXES = [{'name': 'search-ci', 'dimension': 384, 'metric': 'cosine'},
+INDEXES = [{'name': 'question-answer-ci', 'dimension': 384, 'metric': 'cosine'},
            {'name': 'recommendation-ci', 'dimension': 384, 'metric': 'cosine'},
-           {'name': 'genai-ci', 'dimension': 384, 'metric': 'cosine'}]
+           {'name': 'question-answer-production', 'dimension': 384, 'metric': 'cosine'},
+           {'name': 'recommendation-production', 'dimension': 384, 'metric': 'cosine'}]
 
 def create_indexes():
     pc = Pinecone(api_key=API_KEY)
