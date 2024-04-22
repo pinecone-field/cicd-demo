@@ -8,20 +8,20 @@ import argparse
 load_dotenv()
 
 API_KEY = os.getenv("PINECONE_API_KEY")
-INDEXES = ["search-ci", "recommendation-ci", "genai-ci"]
-DIMENSIONS = 384
-METRIC = "cosine"
+INDEXES = [{'name': 'search-ci', 'dimension': 384, 'metric': 'cosine'},
+           {'name': 'recommendation-ci', 'dimension': 384, 'metric': 'cosine'},
+           {'name': 'genai-ci', 'dimension': 384, 'metric': 'cosine'}]
 
 def create_indexes():
     pc = Pinecone(api_key=API_KEY)
     for index in INDEXES:
         try:
-            pc.create_index(name=index, dimension=DIMENSIONS, metric=METRIC,
+            pc.create_index(name=index['name'], dimension=index['dimension'], metric=index['metric'],
             spec=ServerlessSpec(
                 cloud="aws",
                 region="us-west-2"
             ))
-            print(f"Pinecone control plane: {index} index created successfully")
+            print(f"Pinecone control plane: {index['name']} index created successfully")
         except PineconeApiException as pae:
             print("Pinecone control plane API exception: Please check the error message below:")
             print(pae)
@@ -31,8 +31,8 @@ def delete_indexes():
     pc = Pinecone(api_key=API_KEY)
     for index in INDEXES:
         try:
-            pc.delete_index(name=index)
-            print(f"Pinecone control plane: {index} index deleted successfully")
+            pc.delete_index(name=index['name'])
+            print(f"Pinecone control plane: {index['name']} index deleted successfully")
         except PineconeApiException as pae:
             print("Pinecone control plane API exception: Please check the error message below:")
             print(pae)

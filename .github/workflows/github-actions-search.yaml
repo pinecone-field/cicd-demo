@@ -9,7 +9,7 @@ env:
   PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
   PINECONE_NAMESPACE: ${{ github.sha }}
   PINECONE_INDEX_NAME: "search-ci"
-  DATA_FILE: "data/search-data.jsonl"
+  DATA_FILE: "data/search-data-with-embeddings.jsonl"
 
 jobs:
   Build-RunDataPipeline-RunTests-Teardown:
@@ -22,7 +22,7 @@ jobs:
       - name: Run data pipeline - upsert
         run: python search/data_pipeline.py upsert
       - name: Run search tests
-        run: python -m unittest search.test_app
+        run: python -m unittest search.test
       - name: Run data pipeline - delete
         if: always()
         run: python search/data_pipeline.py delete

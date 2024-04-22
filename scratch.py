@@ -1,21 +1,23 @@
+import os
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 from sentence_transformers import SentenceTransformer
-import json
 
-# Initialize the SentenceTransformer model
+# Load the data
+df = pd.read_json('./data/recommendation-data.jsonl', lines=True)
+
+# Normalize numerical data
+numerical_cols = ['rsi_rating', 'market_cap', 'dividend_yield', 'beta', 'pe', 'sma_rating', 'macd_rating']
+min_max_scaler = MinMaxScaler()
+scaled_numerical = min_max_scaler.fit_transform(df[numerical_cols])
+
+text_cols = ['ticker','name','sector','industry','Headquarters Location']
 model = SentenceTransformer('all-MiniLM-L6-v2')
+text_embeddings = model.encode(df[text_cols].agg(' '.join, axis=1))
 
-# CSV entry
-entry = {
-    "question": "What are the common data preprocessing steps?",
-    "answer": "Common data preprocessing steps include cleaning data, transforming features, normalizing or scaling data, and splitting the data into training and testing sets."
-}
 
-# Generate the embedding for the question
-embedding = model.encode([entry["question"]])
-
-# Add the embedding to the entry
-entry["embedding"] = embedding.tolist()
-
-# Write the entry to a JSONL file
-with open('data.jsonl', 'w') as f:
-    f.write(json.dumps(entry) + '\n')
+# Concatenate the processed categorical and numerical data
+processed_data = pd.concat([pd.DataFrame(scaled_numerical), pd.DataFrame(text_embeddings)], axis=1)
+embeddings = processed_data.values
+print(embeddings[0].tolist())
+print(len(embeddings[10]))

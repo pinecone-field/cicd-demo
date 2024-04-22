@@ -1,0 +1,28 @@
+name: GitHub Actions Demo - Recommendation
+run-name: Recommendation - ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
+on: 
+  push:
+    paths:
+      - 'recommendation/**'
+
+env:
+  PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+  PINECONE_NAMESPACE: ${{ github.sha }}
+  PINECONE_INDEX_NAME: "recommendation-ci"
+  DATA_FILE: "data/recommendation-data-with-embeddings.jsonl"
+
+jobs:
+  Build-RunDataPipeline-RunTests-Teardown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run data pipeline - upsert
+        run: python recommendation/data_pipeline.py upsert
+      - name: Run recommendation tests
+        run: python -m unittest recommendation.test
+      - name: Run data pipeline - delete
+        if: always()
+        run: python recommendation/data_pipeline.py delete

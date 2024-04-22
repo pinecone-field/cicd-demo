@@ -28,4 +28,11 @@ Run ```python setup.py create``` to create the following indexes:
 These indexes are NOT ephemeral. Pinecone namespaces will allow us to re-use a single index for multiple, simultanenous 
 commits.
 
+### Misc
+To start the fast API service, run this command:
+
+```
+uvicorn main:app --reload
+```
+
 

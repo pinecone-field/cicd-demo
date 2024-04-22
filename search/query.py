@@ -34,7 +34,7 @@ def search_query(question):
 
         # if result.matches[0].score < 0.5:
         #     return "Sorry, I do not have an answer to that question."
-        # abcdedfh
+        # 
         return answer
     except Exception as e:
         print(f"An error occurred: {e}")
