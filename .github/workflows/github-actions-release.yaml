@@ -17,6 +17,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Run data pipeline - Recommendation
+        run: python recommendation/data_pipeline.py upsert
+      - name: Run data pipeline - Question-Answer
+        run: python question_answer/data_pipeline.py upsert
       - name: Run integration tests
         run: echo "[MOCK] - This is where we run integration tests"
       - name: Deploy
