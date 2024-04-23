@@ -15,6 +15,7 @@ class TestApp(unittest.TestCase):
         answer = query("What does Waste Management do?")
         expected_answer = "Sorry, I do not have an answer to that question."
         self.assertEqual(answer, expected_answer)
+        
 
 if __name__ == '__main__':
     unittest.main()
