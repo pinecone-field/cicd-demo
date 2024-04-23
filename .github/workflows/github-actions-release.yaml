@@ -5,7 +5,7 @@ on:
 
 env:
   PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
-  PINECONE_NAMESPACE: ${{ github.sha }}
+  PINECONE_NAMESPACE: ""
   PINECONE_INDEX_RECOMMENDATION: "recommendation-production"
   PINECONE_INDEX_QUESTION-ANSWER: "question-answer-production"
 
