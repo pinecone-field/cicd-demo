@@ -101,6 +101,8 @@ to github. The unit tests will fail.
 1. Uncomment lines 37-38 in [./recommendation/query.py](./recommendation/query.py) and commit+push the change
 to github. The unit tests should pass.
 
+Your Github actions tab should have four jobs(two failing jobs and two successful jobs)
+
 
 ### Step #4 - Test API Service 
 To test both services in "production" you will need to add the following variables
