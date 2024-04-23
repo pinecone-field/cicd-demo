@@ -34,8 +34,8 @@ def query(query_text, rsi_filter, pe_filter, dividend_filter):
         )
         print(f"Query is for: {PINECONE_INDEX_NAME} index in the {PINECONE_NAMESPACE} namespace")
 
-        # if result.matches[0].score < 0.5:
-        #     return "Sorry, I do not have a recommendation for you."
+        if result.matches[0].score < 0.5:
+            return "Sorry, I do not have a recommendation for you."
         
         for r in result.matches:
             recommendation = r.metadata["ticker"]

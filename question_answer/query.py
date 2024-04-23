@@ -32,8 +32,8 @@ def query(question):
         print(f"Query is for: {PINECONE_INDEX_NAME} index in the {PINECONE_NAMESPACE} namespace")
         print(f"Question: {question} \nAnswer: {answer} \nSimilarity score: {score}")
 
-        # if result.matches[0].score < 0.5:
-        #     return "Sorry, I do not have an answer to that question."
+        if result.matches[0].score < 0.5:
+            return "Sorry, I do not have an answer to that question."
         
         return answer
     except Exception as e:
