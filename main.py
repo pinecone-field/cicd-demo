@@ -9,8 +9,6 @@ def search(question: str):
     return {"answer": qa_query(question)}
 
 @app.post("/recommendation")
-def recommend(query_text: str, 
-              rsi_filter: float, 
-              pe_filter: float, 
-              dividend_filter: float):
-    return {"recommendation": rec_query(query_text, rsi_filter, pe_filter, dividend_filter)}
+def recommend(query_text: str, rsi_filter: float, pe_filter: float, dividend_filter: float):
+    recommendations = rec_query(query_text, rsi_filter, pe_filter, dividend_filter)
+    return {"recommendations": recommendations}

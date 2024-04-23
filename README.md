@@ -47,7 +47,7 @@ Open the repo in Visual Studio and add the following to a ```.env``` file in the
 PINECONE_API_KEY=[YOUR_API_KEY]
 PINECONE_NAMESPACE=[YOUR_USER_ID]
 PINECONE_INDEX_RECOMMENDATION=recommendation-ci
-PINECONE_INDEX_QUESTION-ANSWER=question-answer-ci
+PINECONE_INDEX_QUESTION_ANSWER=question-answer-ci
 ```
 
 Open a terminal window and create a python virtual environment and install packages required for demo.
@@ -96,7 +96,7 @@ to github. The unit tests will fail.
 to github. The unit tests should pass.
 
 #### Recommendation
-1. Uncomment lines 16-20 in [./recommendation/test.py](./recommendation/test.py) and commit+push the change
+1. Uncomment lines 14-18 in [./recommendation/test.py](./recommendation/test.py) and commit+push the change
 to github. The unit tests will fail.
 1. Uncomment lines 37-38 in [./recommendation/query.py](./recommendation/query.py) and commit+push the change
 to github. The unit tests should pass.

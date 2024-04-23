@@ -37,12 +37,26 @@ def query(query_text, rsi_filter, pe_filter, dividend_filter):
         # if result.matches[0].score < 0.5:
         #     return "Sorry, I do not have a recommendation for you."
         
+        recommendations = []
         for r in result.matches:
-            recommendation = r.metadata["ticker"]
+            ticker = r.metadata["ticker"]
             score = r.score
-            print(f"Query Text: {query_text} \nRecommendation: {recommendation} \nSimilarity score: {score}")
-        
-        return result.matches
+            rsi = r.metadata["RSI"]
+            dividend = r.metadata["Dividend Yield"]
+            sector = r.metadata["sector"]
+            industry = r.metadata["industry"]
+            pe = r.metadata["PE"]
+            recommendations.append({
+                "ticker": ticker,
+                "score": score,
+                "RSI": rsi,
+                "Dividend Yield": dividend,
+                "sector": sector,
+                "industry": industry,
+                "PE": pe
+            })
+        print(recommendations)
+        return recommendations
     except Exception as e:
         print(f"An error occurred: {e}")
         raise e
