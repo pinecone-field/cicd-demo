@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE")
-PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_QUESTION-ANSWER")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_QUESTION_ANSWER")
 
 def generate_embedding(question):
     model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -32,8 +32,8 @@ def query(question):
         print(f"Query is for: {PINECONE_INDEX_NAME} index in the {PINECONE_NAMESPACE} namespace")
         print(f"Question: {question} \nAnswer: {answer} \nSimilarity score: {score}")
 
-        if result.matches[0].score < 0.5:
-            return "Sorry, I do not have an answer to that question."
+        # if result.matches[0].score < 0.5:
+        #     return "Sorry, I do not have an answer to that question."
         
         return answer
     except Exception as e:

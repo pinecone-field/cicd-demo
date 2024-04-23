@@ -14,9 +14,9 @@ job is isolated(runtime and test data).
 ![Diagram](images/pinecone-demo-detail.png)
 
 When code is committed to the ```question_answer``` sub-folder the 
-[CI/CD - Question-Answer](.github/workflows/github-actions-question-answer.yaml) 
+[CI/CD - Question-Answer](.github/workflows/github-actions-question-answer.yaml) job
 executes. When code is committed to the ```recommendation``` sub-folder the
-[CI/CD - Recommendation](.github/workflows/github-actions-recommendation.yaml) 
+[CI/CD - Recommendation](.github/workflows/github-actions-recommendation.yaml) job
 executes. 
 
 ![Diagram](images/pinecone-cicdemo-release.png)
@@ -101,16 +101,28 @@ to github. The unit tests will fail.
 1. Uncomment lines 37-38 in [./recommendation/query.py](./recommendation/query.py) and commit+push the change
 to github. The unit tests should pass.
 
+![Screenshot](images/github-actions.png)
+
 Your Github actions tab should have four jobs(two failing jobs and two successful jobs)
 
+### Step #4 - "Production" API Service 
+Production is in quotes because we really don't have a production service. There is a 
+[Release - Question-Answer and Recommendation](.github/workflows/github-actions-release.yaml) job
+that runs the data pipeline for the ```Question-Answer``` and ```Recommendation```. 
 
-### Step #4 - Test API Service 
+![Screenshot](images/release-screenshot.png)
+
+This job must be run manually. 
+
+And, there is a [FastAPI](./main.py) service that can be run locally to mock production.
+
 To test both services in "production" you will need to add the following variables
 to the ```.env``` file
 
 ```
 PINECONE_INDEX_RECOMMENDATION=recommendation-production
 PINECONE_INDEX_QUESTION-ANSWER=question-answer-production
+PINECONE_NAMESPACE=
 ```
 
 Then, start the API service, via this command:

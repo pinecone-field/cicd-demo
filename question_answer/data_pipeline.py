@@ -9,7 +9,7 @@ from sentence_transformers import SentenceTransformer
 load_dotenv()
 API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "")
-PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_QUESTION-ANSWER")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_QUESTION_ANSWER")
 SOURCE_DATA_FILE =  os.getenv("SOURCE_DATA_FILE", "data/question-answer-data.jsonl")
 DATA_FILE = os.getenv("DATA_FILE", "data/question-answer-data-with-embeddings.jsonl")
 
