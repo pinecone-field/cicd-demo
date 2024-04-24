@@ -1,6 +1,32 @@
 # cicd-demo
 This demo attempts to replicate a "mono" repo approach to ci/cd for applications that leverage pinecone. 
 
+### Problem Statement
+1. **Cloud-Based Data Service Development**: Software developers are tasked with delivering features that leverage a cloud-based data service. This service is managed and does not provide a local runtime environment that can be spun up within traditional CI environments like Docker or VM-based systems.
+
+2. **CI Integration Limitations**: The nature of the cloud service prevents it from being instantiated within standard CI job runners. This restriction poses a significant challenge for implementing CI/CD pipelines that rely on environment consistency and isolation.
+
+3. **Testing Requirements**: Developers need to write both unit tests and integration tests. These tests must interact with the actual managed cloud service rather than a locally hosted version or mock, necessitating direct interaction with the cloud environment.
+
+4. **Resource Contention and Data Isolation**: Each CI job, such as those triggered by different pull requests or development branches, requires its own isolated set of data within the cloud service. This isolation is crucial to prevent tests from different jobs from interfering with each other, which could lead to flaky tests and non-reproducible test failures.
+
+### Technical Challenges
+- **Environment Consistency**: Ensuring that the cloud environment’s state matches the expectations of various tests without the ability to replicate the service locally.
+- **Resource Isolation**: Mechanisms must be in place to isolate resources per test job to prevent clashes and ensure reliable, independent test results.
+- **Data Management**: Effective management of data lifecycle in the cloud environment to ensure data setup and teardown processes are robust and leak-proof.
+
+### Solution
+1. **Dynamic Resource Provisioning**:
+   - **Namespaced Resources**: Implement a system where pinecone namespaces within a dedicated CI index are dynamically created. These can be linked to specific CI jobs or job IDs, ensuring data isolation.
+   - **API-Based Setup and Teardown**: Utilize the cloud service APIs to programmatically set up and tear down test environments before and after each test. This setup includes provisioning of the necessary isolated resources and configuring them per test specifications.
+
+3. **Integration Testing with Scoped Data**:
+   - **Scoped Configuration**: Use environment variables specific to each test job to define the scope and parameters of the cloud resources it should interact with.
+   - **Automated Cleanup**: Post-test cleanup jobs should be automated to remove or archive test data immediately after tests conclude to prevent data leakage and minimize costs.
+
+By addressing these challenges through a combination of cloud-native features, dynamic resource management, and rigorous lifecycle controls, the development team can effectively integrate a non-local cloud service into their CI/CD workflows while maintaining high standards of testing rigor and operational isolation.
+
+
 ## How it Works
 
 ![Diagram](images/pinecone-cicdemo-high-level.png)
